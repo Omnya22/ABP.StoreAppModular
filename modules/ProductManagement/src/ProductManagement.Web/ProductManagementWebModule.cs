@@ -9,6 +9,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using ProductManagement.Permissions;
+using Volo.Abp.AspNetCore.Mvc;
 
 namespace ProductManagement.Web
 {
@@ -54,6 +55,12 @@ namespace ProductManagement.Web
             {
                 //Configure authorization.
             });
+
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.ConventionalControllers.Create(typeof(ProductManagementApplicationModule).Assembly);
+            });
+
         }
     }
 }

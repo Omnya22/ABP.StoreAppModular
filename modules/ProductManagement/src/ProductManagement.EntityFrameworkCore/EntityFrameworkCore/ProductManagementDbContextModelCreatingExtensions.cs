@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using ProductManagement.Categories;
+using ProductManagement.Products;
 using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace ProductManagement.EntityFrameworkCore
 {
@@ -19,25 +22,41 @@ namespace ProductManagement.EntityFrameworkCore
 
             optionsAction?.Invoke(options);
 
-            /* Configure all entities here. Example:
+            /* Configure all entities here. */
 
-            builder.Entity<Question>(b =>
+            builder.Entity<Product>(b =>
             {
                 //Configure table & schema name
-                b.ToTable(options.TablePrefix + "Questions", options.Schema);
-            
+                b.ToTable("Products", options.Schema);
+                    
                 b.ConfigureByConvention();
-            
-                //Properties
-                b.Property(q => q.Title).IsRequired().HasMaxLength(QuestionConsts.MaxTitleLength);
-                
-                //Relations
-                b.HasMany(question => question.Tags).WithOne().HasForeignKey(qt => qt.QuestionId);
 
-                //Indexes
-                b.HasIndex(q => q.CreationTime);
+                //Properties
+                b.Property(p => p.Title)
+                    .IsRequired()
+                    .HasMaxLength(ProductConsts.MaxTitleLength);
+                
+                b.Property(p => p.Price)
+                    .IsRequired();
+
+                //Relations
+                b.HasOne<Category>()
+                    .WithMany()
+                    .HasForeignKey(p => p.CategoryId);
+
             });
-            */
+
+            builder.Entity<Category>(c =>
+            {
+                //Configure table & schema name
+                c.ToTable("Categories", options.Schema);
+
+                c.ConfigureByConvention();
+
+                //Properties
+                c.Property(p => p.Name)
+                    .IsRequired();
+            });
         }
     }
 }

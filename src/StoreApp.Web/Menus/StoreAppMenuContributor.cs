@@ -23,17 +23,6 @@ namespace StoreApp.Web.Menus
             var administration = context.Menu.GetAdministration();
             var l = context.GetLocalizer<StoreAppResource>();
 
-            context.Menu.Items.Insert(
-                0,
-                new ApplicationMenuItem(
-                    StoreAppMenus.Home,
-                    l["Menu:Home"],
-                    "~/",
-                    icon: "fas fa-home",
-                    order: 0
-                )
-            );
-            
             if (MultiTenancyConsts.IsEnabled)
             {
                 administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);

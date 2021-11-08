@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProductManagement.Categories;
+using ProductManagement.Products;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -10,6 +12,10 @@ namespace ProductManagement.EntityFrameworkCore
         /* Add DbSet for each Aggregate Root here. Example:
          * public DbSet<Question> Questions { get; set; }
          */
+        
+        public DbSet<Product> Products { get; set; }
+        
+        public DbSet<Category> Categories { get; set; }
 
         public ProductManagementDbContext(DbContextOptions<ProductManagementDbContext> options) 
             : base(options)

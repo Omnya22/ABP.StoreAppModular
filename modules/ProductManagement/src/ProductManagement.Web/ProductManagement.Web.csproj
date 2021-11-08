@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProductManagement.Application\ProductManagement.Application.csproj" />
     <ProjectReference Include="..\ProductManagement.HttpApi\ProductManagement.HttpApi.csproj" />
   </ItemGroup>
 
