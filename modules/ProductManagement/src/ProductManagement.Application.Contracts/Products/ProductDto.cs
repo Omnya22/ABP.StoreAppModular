@@ -10,6 +10,8 @@ namespace ProductManagement.Products
         public string Description { get; set; }
 
         public float Price { get; set; }
+        
+        public string PicPath { get; set; }
 
         public Guid CategoryId { get; set; }
     }

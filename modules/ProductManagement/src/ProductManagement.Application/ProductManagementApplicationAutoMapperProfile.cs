@@ -15,6 +15,7 @@ namespace ProductManagement
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<CreateProductDto, Product>();
             CreateMap<UpdateProductDto, Product>();
+            CreateMap<UpdateProductDto, ProductDto>().ReverseMap();
 
             CreateMap<Category, CategoryDto>().ReverseMap();
 

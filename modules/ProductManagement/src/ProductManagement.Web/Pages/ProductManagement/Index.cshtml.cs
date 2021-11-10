@@ -4,6 +4,7 @@ namespace ProductManagement.Web.Pages.ProductManagement
     {
         public void OnGet()
         {
+
         }
     }
 }

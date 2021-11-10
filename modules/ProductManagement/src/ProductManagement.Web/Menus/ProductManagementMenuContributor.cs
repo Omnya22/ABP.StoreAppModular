@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using ProductManagement.Localization;
+using System.Threading.Tasks;
 using Volo.Abp.UI.Navigation;
 
 namespace ProductManagement.Web.Menus
@@ -15,8 +16,19 @@ namespace ProductManagement.Web.Menus
 
         private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
         {
-            //Add main menu items.
-            context.Menu.AddItem(new ApplicationMenuItem(ProductManagementMenus.Prefix, displayName: "ProductManagement", "~/ProductManagement", icon: "fa fa-globe"));
+
+            var l = context.GetLocalizer<ProductManagementResource>();
+            
+            context.Menu.AddItem(
+                new ApplicationMenuItem(
+                    "ProductManagement",
+                    displayName:l["Menu:ProductManagement"],
+                    icon: "fa fa-globe")
+                .AddItem(
+                new ApplicationMenuItem(
+                    "ProductManagement.Products",
+                    displayName:l["Menu:Products"],
+                    url: "/ProductManagement/Products")));
 
             return Task.CompletedTask;
         }

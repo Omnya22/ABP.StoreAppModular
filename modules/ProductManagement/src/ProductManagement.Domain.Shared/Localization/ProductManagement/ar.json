@@ -2,6 +2,29 @@
   "culture": "ar",
   "texts": {
     "MyAccount": "إدارة ملفى",
-    "SamplePageMessage": "صفحة نموذجية للوحدة النمطية ProductManagement"
+    "Menu:ProductManagement": "إدارة المنتجات",
+    "Menu:Products": "المنتجات",
+    "Products": "المنتجات",
+    "Actions": "الإجراءات",
+    "Close": "غلق",
+    "Save": "حفظ",
+    "Delete": "حذف",
+    "Edit": "تعديل",
+    "NewProduct": "منتج جديد",
+    "EditProduct": "تعديل منتج",
+    "Title": "الاسم",
+    "DisplayName:Title": "الاسم",
+    "Description": "الوصف",
+    "DisplayName:Description": "الوصف",
+    "Price": "السعر",
+    "DisplayName:Price": "السعر",
+    "Category": "الفئة",
+    "DisplayName:Category": "الفئة",
+    "ProductPic": "صورة المنتج",
+    "DisplayName:ProductPic": "صورة المنتج",
+    "SelectCategory": "اختر المنتج",
+    "Filter": "ابحث",
+    "AreYouSure": "هل أنت متأكد؟",
+    "AreYouSureToDelete": "هل أنت متأكد لحذف هذا؟"
   }
 }

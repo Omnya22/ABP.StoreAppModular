@@ -1,0 +1,24 @@
+﻿@page
+@using Microsoft.Extensions.Localization
+@using ProductManagement.Localization
+@inject IStringLocalizer<ProductManagementResource> L
+@model ProductManagement.Web.Pages.ProductManagement.Products.DeleteModel
+@{
+}
+<h5>Delete</h5>
+<form method="post">
+
+	<abp-card>
+		<abp-card-header class="text-danger" >@L["AreYouSureToDelete"]</abp-card-header>
+		<abp-card-body>
+			<input hidden asp-for="@Model.Product.Id" />
+			<abp-input readonly="true" asp-for="@Model.Product.Title" label="@L["Title"]"/>
+			<abp-input readonly="true" asp-for="@Model.Product.Description" label="@L["Description"]"/>
+			<abp-input readonly="true" asp-for="@Model.Product.Price" label="@L["Price"]"/>
+			<abp-input readonly="true" asp-for="@Model.Product.CategoryId"label="@L["Category"]" />
+			<abp-button button-type="Danger" type="submit" icon="trash" text="@L["Delete"].Value"></abp-button>
+			<abp-button button-type="Primary" icon="close" text="@L["Close"].Value" ></abp-button>
+		</abp-card-body>
+	</abp-card>
+
+</form>

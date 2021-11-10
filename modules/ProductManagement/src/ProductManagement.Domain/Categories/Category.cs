@@ -6,7 +6,7 @@ namespace ProductManagement.Categories
     public class Category : Entity<Guid>
     {
         public string Name { get; set; }
-
+                
         protected Category()
         {
         }

@@ -1,7 +1,30 @@
 {
   "culture": "en",
   "texts": {
-    "MyAccount":  "My account",
-    "SamplePageMessage": "A sample page for the ProductManagement module"
+    "MyAccount": "My account",
+    "Menu:ProductManagement": "Product Management",
+    "Menu:Products": "Products",
+    "Products": "Products",
+    "Actions": "Actions",
+    "Close": "Close",
+    "Save": "Save",
+    "Delete": "Delete",
+    "Edit": "Edit",
+    "NewProduct": "New Product",
+    "EditProduct": "Edit Product",
+    "Title": "Title",
+    "DisplayName:Title": "Title",
+    "Description": "Description",
+    "DisplayName:Description": "Description",
+    "Price": "Price",
+    "DisplayName:Price": "Price",
+    "Category": "Category",
+    "DisplayName:Category": "Category",
+    "ProductPic": "Product Picture",
+    "DisplayName:ProductPic": "Product Picture",
+    "SelectCategory": "Select Category",
+    "Filter": "Filter",
+    "AreYouSure": "Are you sure?",
+    "AreYouSureToDelete": "Are you sure you want to delete this item?"
   }
 }

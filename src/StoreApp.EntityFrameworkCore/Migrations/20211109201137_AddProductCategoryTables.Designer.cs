@@ -11,7 +11,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace StoreApp.Migrations
 {
     [DbContext(typeof(StoreAppDbContext))]
-    [Migration("20211108222246_AddProductCategoryTables")]
+    [Migration("20211109201137_AddProductCategoryTables")]
     partial class AddProductCategoryTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,9 @@ namespace StoreApp.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PicPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Price")

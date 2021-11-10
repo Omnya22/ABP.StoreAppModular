@@ -5,11 +5,13 @@ using Volo.Abp.Application.Services;
 
 namespace ProductManagement.Products
 {
-    public interface IProductService : IApplicationService
+    public interface IProductAppService : IApplicationService
     {
         Task<ProductDto> GetAsync(Guid id);
 
-        Task<List<ProductDto>> GetListAsync(Guid? filter);
+        Task<List<ProductDto>> GetListAsync(Nullable<Guid> filter);
+
+        //Task<PagedResultDto<ProductDto>> GetListAsync(GetProductListDto? input);
 
         Task<ProductDto> CreateAsync(CreateProductDto input);
 

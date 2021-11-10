@@ -5,11 +5,11 @@ using Volo.Abp.Domain.Repositories;
 
 namespace ProductManagement.Categories
 {
-    public class CategoryService : ProductManagementAppService ,ICategoryService
+    public class CategoryAppService : ProductManagementAppService ,ICategoryAppService
     {
         private readonly IRepository<Category, Guid> _categoryRepository;
 
-        public CategoryService(IRepository<Category, Guid> categoryRepository)
+        public CategoryAppService(IRepository<Category, Guid> categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }

@@ -3,7 +3,36 @@
 @using ProductManagement.Localization
 @model ProductManagement.Web.Pages.ProductManagement.IndexModel
 @inject IStringLocalizer<ProductManagementResource> L
-@{
-}
-<h1>ProductManagement</h1>
-<p>@L["SamplePageMessage"]</p>
+@{ }
+@*<abp-card style="">
+	<abp-card-header>
+		<abp-card-title>Filter</abp-card-title>
+	</abp-card-header>
+	<abp-card-body>
+		<abp-card-text>Category</abp-card-text>
+		<abp-dropdown>
+			<abp-dropdown-button button-type="Outline_Secondary" text="Dropdown button" />
+			<abp-dropdown-menu class="col-12">
+				@foreach (var item in @Categories.GetAsync().ToString())
+				{
+					<abp-dropdown-item asp-for="@item">@item.ToString()</abp-dropdown-item>
+				}
+			</abp-dropdown-menu>
+		</abp-dropdown>
+	</abp-card-body>
+	<abp-card-footer>
+		<a abp-button="Primary" style="float: right" href="#">Filter</a>
+	</abp-card-footer>
+</abp-card>
+<abp-card>
+	<abp-card-header>
+		<div class="row">
+			<abp-card-title class="col-2">Products</abp-card-title>
+			<div class="col-8"></div>
+			<a abp-button="Primary" class="" href="#">Add Product</a>
+		</div>
+	</abp-card-header>
+	<abp-card-body>
+		<abp-table striped-rows="true" id="Table"></abp-table>
+	</abp-card-body>
+</abp-card>*@

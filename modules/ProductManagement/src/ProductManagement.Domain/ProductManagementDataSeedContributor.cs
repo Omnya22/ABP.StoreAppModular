@@ -8,12 +8,12 @@ using Volo.Abp.Guids;
 
 namespace ProductManagement
 {
-    class StoreManagementDataSeedContributor : IDataSeedContributor, ITransientDependency
+    class ProductManagementDataSeedContributor : IDataSeedContributor, ITransientDependency
     {
         private readonly IRepository<Category, Guid> _categoryRepository;
         private readonly IGuidGenerator _guidGenerator;
 
-        public StoreManagementDataSeedContributor(IRepository<Category, Guid> categoryRepository, IGuidGenerator guidGenerator)
+        public ProductManagementDataSeedContributor(IRepository<Category, Guid> categoryRepository, IGuidGenerator guidGenerator)
         {
             _categoryRepository = categoryRepository;
             _guidGenerator = guidGenerator;

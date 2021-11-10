@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 
 namespace ProductManagement.Products
 {
-    public class ProductService : ProductManagementAppService, IProductService
+    public class ProductAppService : ProductManagementAppService, IProductAppService
     {
         private readonly IRepository<Product,Guid> _productRepository;
 
-        public ProductService(IRepository<Product, Guid> productRepository)
+        public ProductAppService(IRepository<Product, Guid> productRepository)
         {
             _productRepository = productRepository;
         }
@@ -35,18 +36,29 @@ namespace ProductManagement.Products
             return ObjectMapper.Map<Product, ProductDto>(product);
         }
 
-        public async Task<List<ProductDto>> GetListAsync(Guid? filter)
+        //override the GetList method to enable searching (in here I only search by book name, you can also search by other props)
+        //public async Task<PagedResultDto<ProductDto>> GetListAsync(GetProductListDto? input)
+        //{
+        //    var queryable = await _productRepository.GetQueryableAsync();
+
+        //    //var query = queryable.Where(p => p.CategoryId == input.Filter);
+        //                                //.OrderBy(input.Sorting ?? nameof(Product.Title).ToLower())
+        //                                //.PageBy(input);
+
+        //    var count = await AsyncExecuter.CountAsync(queryable);
+
+        //    var products = await AsyncExecuter.ToListAsync(queryable);
+
+        //    var result = ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
+
+        //    return new PagedResultDto<ProductDto> { Items = result };
+        //}
+
+        public async Task<List<ProductDto>> GetListAsync(Nullable<Guid> filter)
         {
             var products = ObjectMapper.Map<List<Product>, List<ProductDto>>(await _productRepository.GetListAsync());
-            
-            if (filter == null)
-            {
-                return products;
-            }
-            else
-            {
-                return products.Where(p=>p.CategoryId==filter).ToList();
-            }
+
+            return (filter == null || filter == Guid.Empty) ?  products : products.Where(p => p.CategoryId == filter).ToList();
         }
 
         public async Task<ProductDto> UpdateAsync(Guid id, UpdateProductDto input)
