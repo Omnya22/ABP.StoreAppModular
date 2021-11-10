@@ -1,5 +1,4 @@
 using System.IO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using ProductManagement.Categories;
 using ProductManagement.Products;
@@ -33,19 +32,22 @@ namespace ProductManagement.Web.Pages.ProductManagement.Products
             Categories = await _categoryAppService.GetListAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(IFormFile uploaded)
+        public async Task<IActionResult> OnPostAsync()
         {
-            //string imgtxt = Path.GetExtension(uploaded.FileName);
-            //if(imgtxt == ".jpg" || imgtxt == ".gif" || imgtxt == ".png")
-            //{
-            //    var imgSave = Path.Combine(_webHost.WebRootPath, "Images", uploaded.FileName);
-            //    var stream = new FileStream(imgSave, FileMode.Create);
-            //    await uploaded.CopyToAsync(stream);
-            //    stream.Close();
-            //    Product.PicPath = imgSave;
-            //}
+            var httpRequest = Request.Form;
+            var postedFile = httpRequest.Files[0];
+            string filename = postedFile.FileName;
+            var physicalPath = _webHost.WebRootPath + "\\Images\\" + filename;
+            if (postedFile!= null)
+            {
+                using (var stream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
+            }
             if (ModelState.IsValid)
             {
+                Product.PicPath = filename;
                 await _productAppService.CreateAsync(Product);
                 return RedirectToPage("Index");
             }

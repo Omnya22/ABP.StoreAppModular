@@ -20,6 +20,8 @@
     <Content Remove="Logs\**" />
     <EmbeddedResource Remove="Logs\**" />
     <None Remove="Logs\**" />
+    <Content Remove="wwwroot\Images\dafult.png" />
+    <EmbeddedResource Include="wwwroot\Images\dafult.png" />
   <ProjectReference Include="..\..\modules\ProductManagement\src\ProductManagement.Web\ProductManagement.Web.csproj" /></ItemGroup>
 
   <ItemGroup>
