@@ -25,6 +25,12 @@
     "SelectCategory": "Select Category",
     "Filter": "Filter",
     "AreYouSure": "Are you sure?",
-    "AreYouSureToDelete": "Are you sure you want to delete this item?"
+    "AreYouSureToDelete": "Are you sure you want to delete this item?",
+    "Permission:ProductManagement": "Products",
+    "Permission:Products": "Product Management",
+    "Permission:Products.Create": "Creating new products",
+    "Permission:Products.Edit": "Editing the products",
+    "Permission:Products.Delete": "Deleting the products"
+
   }
 }

@@ -1,6 +1,9 @@
 ﻿@page
 @using Microsoft.Extensions.Localization
 @using ProductManagement.Localization
+@using ProductManagement.Permissions
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 @inject IStringLocalizer<ProductManagementResource> L
 @model ProductManagement.Web.Pages.ProductManagement.Products.IndexModel
 @{
@@ -20,7 +23,10 @@
 	<div class="card">
 		<div class="card-header">
 			<h5>@L["Products"]</h5>
-			<a asp-page="Create" class="btn btn-primary" style="float:right">@L["NewProduct"] <i class="fas fa-plus"></i></a>
+			@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Create))
+			{
+				<a asp-page="Create" class="btn btn-primary" style="float:right">@L["NewProduct"] <i class="fas fa-plus"></i></a>
+			}
 		</div>
 		<div class="card-body">
 			<table class="table table-striped table-bordered">
@@ -28,26 +34,34 @@
 					<tr>
 						<th>@L["Title"]</th>
 						<th>@L["Description"]</th>
-						<th>@L["Category"]</th>
 						<th>@L["Price"]</th>
-						<th>@L["Actions"]</th>
-					</tr>
+						@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Edit)
+							 || await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Delete))
+						{
+							<th>@L["Actions"]</th>
+						}
+						</tr>
 				</thead>
 				<tbody>
 					@foreach (var product in Model.Products)
 					{
-						<tr>
-							<td>@product.Title</td>
-							<td>@product.Description</td>
-							<td>@product.CategoryId</td>
-							<td>@product.Price</td>
-							<td>
-								<div>
+					<tr>
+						<td>@product.Title</td>
+						<td>@product.Description</td>
+						<td>@product.Price</td>
+						<td>
+							<div>
+								@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Edit))
+								{
 									<a type="button" asp-page="Edit" asp-route-id="@product.Id" class="btn btn-info">@L["Edit"] <i class="far fa-edit"></i></a>
+								}
+								@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Delete))
+								{
 									<a type="button" asp-page="Delete" asp-route-id="@product.Id" class="btn btn-danger">@L["Delete"] <i class="fas fa-trash-alt"></i></a>
-								</div>
-							</td>
-						</tr>
+								}
+							</div>
+						</td>	
+					</tr>
 					}
 				</tbody>
 			</table>

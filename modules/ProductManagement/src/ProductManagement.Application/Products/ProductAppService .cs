@@ -36,24 +36,6 @@ namespace ProductManagement.Products
             return ObjectMapper.Map<Product, ProductDto>(product);
         }
 
-        //override the GetList method to enable searching (in here I only search by book name, you can also search by other props)
-        //public async Task<PagedResultDto<ProductDto>> GetListAsync(GetProductListDto? input)
-        //{
-        //    var queryable = await _productRepository.GetQueryableAsync();
-
-        //    //var query = queryable.Where(p => p.CategoryId == input.Filter);
-        //                                //.OrderBy(input.Sorting ?? nameof(Product.Title).ToLower())
-        //                                //.PageBy(input);
-
-        //    var count = await AsyncExecuter.CountAsync(queryable);
-
-        //    var products = await AsyncExecuter.ToListAsync(queryable);
-
-        //    var result = ObjectMapper.Map<List<Product>, List<ProductDto>>(products);
-
-        //    return new PagedResultDto<ProductDto> { Items = result };
-        //}
-
         public async Task<List<ProductDto>> GetListAsync(Nullable<Guid> filter)
         {
             var products = ObjectMapper.Map<List<Product>, List<ProductDto>>(await _productRepository.GetListAsync());

@@ -14,7 +14,7 @@
 			<abp-input  asp-for="@Model.Product.Price" label="@L["Price"]" />
 			<abp-select asp-for="@Model.Product.CategoryId" label="@L["Category"]" asp-items="@(new SelectList(Model.Categories,"Id","Name"))" />
 			<abp-button button-type="Danger" type="submit" icon="save" text="@L["Save"].Value"></abp-button>
-			<abp-button button-type="Primary" icon="close" text="@L["Close"].Value"></abp-button>
+			<abp-button button-type="Primary" icon="close" text="@L["Close"].Value" onclick= "history.go(-1)"></abp-button>
 		</abp-card-body>
 	</abp-card>
 </form>

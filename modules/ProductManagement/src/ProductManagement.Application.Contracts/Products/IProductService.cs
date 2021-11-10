@@ -11,8 +11,6 @@ namespace ProductManagement.Products
 
         Task<List<ProductDto>> GetListAsync(Nullable<Guid> filter);
 
-        //Task<PagedResultDto<ProductDto>> GetListAsync(GetProductListDto? input);
-
         Task<ProductDto> CreateAsync(CreateProductDto input);
 
         Task<ProductDto> UpdateAsync(Guid id, UpdateProductDto input);

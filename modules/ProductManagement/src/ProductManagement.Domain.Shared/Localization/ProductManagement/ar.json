@@ -25,6 +25,11 @@
     "SelectCategory": "اختر المنتج",
     "Filter": "ابحث",
     "AreYouSure": "هل أنت متأكد؟",
-    "AreYouSureToDelete": "هل أنت متأكد لحذف هذا؟"
+    "AreYouSureToDelete": "هل أنت متأكد لحذف هذا؟",
+    "Permission:ProductManagement": "المنتجات",
+    "Permission:Products": "إدارة المنتجات",
+    "Permission:Products.Create": "إنشاء منتجات جديدة",
+    "Permission:Products.Edit": "تعديل المنتجات",
+    "Permission:Products.Delete": "حذف المنتجات"
   }
 }

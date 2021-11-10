@@ -30,7 +30,7 @@ namespace ProductManagement.Web.Pages.ProductManagement.Products
 
         public async Task OnGetAsync()
         {
-            Categories = await _categoryAppService.GetAsync();
+            Categories = await _categoryAppService.GetListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync(IFormFile uploaded)

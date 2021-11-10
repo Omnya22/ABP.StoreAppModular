@@ -13,7 +13,14 @@ namespace ProductManagement.Categories
         {
             _categoryRepository = categoryRepository;
         }
-        public async Task<List<CategoryDto>> GetAsync()
+
+        public async Task<CategoryDto> GetAsync(Guid id)
+        {
+            var category = await _categoryRepository.GetAsync(id);
+            return ObjectMapper.Map<Category, CategoryDto>(category);
+        }
+
+        public async Task<List<CategoryDto>> GetListAsync()
         {
             return ObjectMapper.Map<List<Category>, List<CategoryDto>>(await _categoryRepository.GetListAsync());
         }

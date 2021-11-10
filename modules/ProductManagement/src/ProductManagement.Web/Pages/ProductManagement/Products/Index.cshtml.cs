@@ -22,13 +22,13 @@ namespace ProductManagement.Web.Pages.ProductManagement.Products
 
         public async Task OnGetAsync()
         {
-            Categories = await _categoryAppService.GetAsync();
+            Categories = await _categoryAppService.GetListAsync();
             Products = await _productAppService.GetListAsync(Guid.Empty);
         }
 
         public async Task OnPostAsync(Guid selected)
         {
-            Categories = await _categoryAppService.GetAsync();
+            Categories = await _categoryAppService.GetListAsync();
             Products = await _productAppService.GetListAsync(selected);
         }
 

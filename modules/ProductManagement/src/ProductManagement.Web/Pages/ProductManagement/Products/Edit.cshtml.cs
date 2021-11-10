@@ -27,8 +27,7 @@ namespace ProductManagement.Web.Pages.ProductManagement.Products
         {
             var prodcutDto = await _productAppService.GetAsync(id);
             Product =  ObjectMapper.Map <ProductDto, UpdateProductDto>(prodcutDto);
-            Categories = await _categoryAppService.GetAsync();
-
+            Categories = await _categoryAppService.GetListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
