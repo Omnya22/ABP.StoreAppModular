@@ -4,8 +4,7 @@
     });
 
     $('#download').click(function (e) {
-        e.preventDefault();  //stop the browser from following
-        //window.location.href = 'uploads/file.doc';
-        download($('#barcode').attr('src'), "strcode.png", "image/png");
+        e.preventDefault();
+        window.location.href = "C:\\img.png";
     });
 });

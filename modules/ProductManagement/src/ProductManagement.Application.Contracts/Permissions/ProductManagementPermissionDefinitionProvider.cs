@@ -10,10 +10,10 @@ namespace ProductManagement.Permissions
         {
             var myGroup = context.AddGroup(ProductManagementPermissions.GroupName, L("Permission:ProductManagement"));
 
-            var booksPermission = myGroup.AddPermission(ProductManagementPermissions.Product.Default, L("Permission:Books"));
-            booksPermission.AddChild(ProductManagementPermissions.Product.Create, L("Permission:Books.Create"));
-            booksPermission.AddChild(ProductManagementPermissions.Product.Edit, L("Permission:Books.Edit"));
-            booksPermission.AddChild(ProductManagementPermissions.Product.Delete, L("Permission:Books.Delete"));
+            var productsPermission = myGroup.AddPermission(ProductManagementPermissions.Product.Default, L("Permission:Products"));
+            productsPermission.AddChild(ProductManagementPermissions.Product.Create, L("Permission:Products.Create"));
+            productsPermission.AddChild(ProductManagementPermissions.Product.Edit, L("Permission:Products.Edit"));
+            productsPermission.AddChild(ProductManagementPermissions.Product.Delete, L("Permission:Products.Delete"));
 
         }
 

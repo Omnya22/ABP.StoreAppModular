@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProductManagement.Products
 {
+    [Authorize]
     public class ProductAppService : ProductManagementAppService, IProductAppService
     {
         private readonly IRepository<Product,Guid> _productRepository;
@@ -16,6 +17,7 @@ namespace ProductManagement.Products
             _productRepository = productRepository;
         }
 
+        [Authorize("Products.Create")]
         public async Task<ProductDto> CreateAsync(CreateProductDto input)
         {
             var product = ObjectMapper.Map<CreateProductDto, Product>(input);
@@ -25,6 +27,7 @@ namespace ProductManagement.Products
             return ObjectMapper.Map<Product, ProductDto>(createdProduct);
         }
 
+        [Authorize("Products.Delete")]
         public async Task DeleteAsync(Guid id)
         {
             await _productRepository.DeleteAsync(id);
@@ -36,6 +39,7 @@ namespace ProductManagement.Products
             return ObjectMapper.Map<Product, ProductDto>(product);
         }
 
+        [AllowAnonymous]
         public async Task<List<ProductDto>> GetListAsync(Nullable<Guid> filter)
         {
             var products = ObjectMapper.Map<List<Product>, List<ProductDto>>(await _productRepository.GetListAsync());
@@ -43,6 +47,7 @@ namespace ProductManagement.Products
             return (filter == null || filter == Guid.Empty) ?  products : products.Where(p => p.CategoryId == filter).ToList();
         }
 
+        [Authorize("Products.Edit")]
         public async Task<ProductDto> UpdateAsync(Guid id, UpdateProductDto input)
         {
             var product = ObjectMapper.Map<UpdateProductDto, Product>(input);
