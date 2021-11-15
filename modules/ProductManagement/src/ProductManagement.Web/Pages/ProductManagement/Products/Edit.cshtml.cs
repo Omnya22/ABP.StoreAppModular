@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using ProductManagement.Categories;
 using ProductManagement.Products;
-using Microsoft.AspNetCore.Http;
 
 namespace ProductManagement.Web.Pages.ProductManagement.Products
 {
@@ -41,21 +40,33 @@ namespace ProductManagement.Web.Pages.ProductManagement.Products
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var httpRequest = Request.Form;
-            var postedFile = httpRequest.Files[0];
-            string filename = postedFile.FileName;
-            var physicalPath = _webHost.WebRootPath + "\\Images\\" + filename;
-            if (postedFile != null)
+            if (Request.Form.Files.Count > 0)
             {
+                var httpRequest = Request.Form;
+                var postedFile = httpRequest.Files[0];
+                string filename = postedFile.FileName;
+                var physicalPath = _webHost.WebRootPath + "\\Images\\" + filename;
                 using (var stream = new FileStream(physicalPath, FileMode.Create))
                 {
                     postedFile.CopyTo(stream);
                 }
+                if (ModelState.IsValid)
+                {
+                    Product.PicPath = filename;
+                    await _productAppService.UpdateAsync(Product.Id, Product);
+                    return RedirectToPage("Index");
+                }
             }
-
-            Product.PicPath = filename;
-            await _productAppService.UpdateAsync(Product.Id,Product);
-            return RedirectToPage("Index");
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    Product.PicPath = _webHost.WebRootPath + "\\Images\\" + "dafult.png";
+                    await _productAppService.UpdateAsync(Product.Id, Product);
+                    return RedirectToPage("Index");
+                }
+            }
+            return Page();
         }
     }
 }

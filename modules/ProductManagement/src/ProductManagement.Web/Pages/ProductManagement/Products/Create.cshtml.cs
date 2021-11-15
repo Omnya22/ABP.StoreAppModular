@@ -30,26 +30,36 @@ namespace ProductManagement.Web.Pages.ProductManagement.Products
         public async Task OnGetAsync()
         {
             Categories = await _categoryAppService.GetListAsync();
+
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var httpRequest = Request.Form;
-            var postedFile = httpRequest.Files[0];
-            string filename = postedFile.FileName;
-            var physicalPath = _webHost.WebRootPath + "\\Images\\" + filename;
-            if (postedFile!= null)
+            if (Request.Form.Files.Count > 0)
             {
+                var httpRequest = Request.Form;
+                var postedFile = httpRequest.Files[0];
+                string filename = postedFile.FileName;
+                var physicalPath = _webHost.WebRootPath + "\\Images\\" + filename;
                 using (var stream = new FileStream(physicalPath, FileMode.Create))
                 {
                     postedFile.CopyTo(stream);
                 }
+                if (ModelState.IsValid)
+                {
+                    Product.PicPath = filename;
+                    await _productAppService.CreateAsync(Product);
+                    return RedirectToPage("Index");
+                }
             }
-            if (ModelState.IsValid)
+            else
             {
-                Product.PicPath = filename;
-                await _productAppService.CreateAsync(Product);
-                return RedirectToPage("Index");
+                if (ModelState.IsValid)
+                {
+                    Product.PicPath = _webHost.WebRootPath + "\\Images\\" + "dafult.png";
+                    await _productAppService.CreateAsync(Product);
+                    return RedirectToPage("Index");
+                }
             }
             return Page();
         }

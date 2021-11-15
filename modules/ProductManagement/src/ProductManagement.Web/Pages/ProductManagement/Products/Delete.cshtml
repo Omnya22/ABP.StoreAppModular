@@ -1,23 +1,33 @@
 ﻿@page
 @using Microsoft.Extensions.Localization
 @using ProductManagement.Localization
+@using System.Globalization
 @inject IStringLocalizer<ProductManagementResource> L
 @model ProductManagement.Web.Pages.ProductManagement.Products.DeleteModel
 @{
+	var Culture = CultureInfo.CurrentCulture.Name;
 }
 <h5>Delete</h5>
 <form method="post">
 
 	<abp-card>
-		<abp-card-header class="text-danger" >@L["AreYouSureToDelete"]</abp-card-header>
+		<abp-card-header class="text-danger">@L["AreYouSureToDelete"]</abp-card-header>
 		<abp-card-body>
 			<input hidden asp-for="@Model.Product.Id" />
-			<abp-input readonly="true" asp-for="@Model.Product.Title" label="@L["Title"]"/>
-			<abp-input readonly="true" asp-for="@Model.Product.Description" label="@L["Description"]"/>
-			<abp-input readonly="true" asp-for="@Model.Product.Price" label="@L["Price"]"/>
-			<abp-input readonly="true" asp-for="@Model.Product.CategoryId"label="@L["Category"]" />
+			@if (Culture == "ar")
+			{
+				<abp-input readonly="true" asp-for="@Model.Product.TitleAr" label="@L["Title"]" />
+				<abp-input readonly="true" asp-for="@Model.Product.DescriptionAr" label="@L["Description"]" />
+			}
+			@if (Culture == "en")
+			{
+				<abp-input readonly="true" asp-for="@Model.Product.TitleEn" label="@L["Title"]" />
+				<abp-input readonly="true" asp-for="@Model.Product.DescriptionEn" label="@L["Description"]" />
+			}
+			<abp-input readonly="true" asp-for="@Model.Product.Price" label="@L["Price"]" />
+			<abp-input readonly="true" asp-for="@Model.Product.CategoryId" label="@L["Category"]" />
 			<abp-button button-type="Danger" type="submit" icon="trash" text="@L["Delete"].Value"></abp-button>
-			<abp-button button-type="Primary" icon="close" text="@L["Close"].Value" onclick= "history.go(-1)"></abp-button>
+			<abp-button button-type="Primary" icon="close" text="@L["Close"].Value" onclick="history.go(-1)"></abp-button>
 		</abp-card-body>
 	</abp-card>
 

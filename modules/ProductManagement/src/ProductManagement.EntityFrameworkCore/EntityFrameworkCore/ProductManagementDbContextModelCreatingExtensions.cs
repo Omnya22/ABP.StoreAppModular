@@ -32,9 +32,9 @@ namespace ProductManagement.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 //Properties
-                b.Property(p => p.Title)
-                    .IsRequired()
-                    .HasMaxLength(ProductConsts.MaxTitleLength);
+                //b.Property(p => p.Title)
+                //    .IsRequired()
+                //    .HasMaxLength(ProductConsts.MaxTitleLength);
                 
                 b.Property(p => p.Price)
                     .IsRequired();

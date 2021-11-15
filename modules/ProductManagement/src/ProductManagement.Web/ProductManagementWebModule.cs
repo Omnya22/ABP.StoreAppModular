@@ -46,6 +46,7 @@ namespace ProductManagement.Web
             });
 
             context.Services.AddAutoMapperObjectMapper<ProductManagementWebModule>();
+            
             Configure<AbpAutoMapperOptions>(options =>
             {
                 options.AddMaps<ProductManagementWebModule>(validate: true);
@@ -53,10 +54,9 @@ namespace ProductManagement.Web
 
             Configure<RazorPagesOptions>(options =>
             {
-                //Configure authorization.
-                    options.Conventions.AuthorizePage("/ProductManagement/Products/Delete", ProductManagementPermissions.Product.Delete);
-                    options.Conventions.AuthorizePage("/ProductManagement/Products/Create", ProductManagementPermissions.Product.Create);
-                    options.Conventions.AuthorizePage("/ProductManagement/Products/Edit", ProductManagementPermissions.Product.Edit);
+                options.Conventions.AuthorizePage("/ProductManagement/Products/Delete", ProductManagementPermissions.Product.Delete);
+                options.Conventions.AuthorizePage("/ProductManagement/Products/Create", ProductManagementPermissions.Product.Create);
+                options.Conventions.AuthorizePage("/ProductManagement/Products/Edit", ProductManagementPermissions.Product.Edit);
             });
 
             Configure<AbpAspNetCoreMvcOptions>(options =>

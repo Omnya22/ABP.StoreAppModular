@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
 
 namespace ProductManagement.Products
 {
@@ -12,12 +13,14 @@ namespace ProductManagement.Products
     {
         private readonly IRepository<Product,Guid> _productRepository;
 
+        private readonly string culture = CultureInfo.CurrentCulture.Name;
+
         public ProductAppService(IRepository<Product, Guid> productRepository)
         {
             _productRepository = productRepository;
         }
 
-        [Authorize("Products.Create")]
+        [Authorize("ProductManagement.Products.Create")]
         public async Task<ProductDto> CreateAsync(CreateProductDto input)
         {
             var product = ObjectMapper.Map<CreateProductDto, Product>(input);
@@ -27,7 +30,7 @@ namespace ProductManagement.Products
             return ObjectMapper.Map<Product, ProductDto>(createdProduct);
         }
 
-        [Authorize("Products.Delete")]
+        [Authorize("ProductManagement.Products.Delete")]
         public async Task DeleteAsync(Guid id)
         {
             await _productRepository.DeleteAsync(id);
@@ -43,18 +46,17 @@ namespace ProductManagement.Products
         public async Task<List<ProductDto>> GetListAsync(Nullable<Guid> filter)
         {
             var products = ObjectMapper.Map<List<Product>, List<ProductDto>>(await _productRepository.GetListAsync());
-
-            return (filter == null || filter == Guid.Empty) ?  products : products.Where(p => p.CategoryId == filter).ToList();
+            return (filter == null || filter == Guid.Empty) ? products : products.Where(p => p.CategoryId == filter).ToList();
         }
 
-        [Authorize("Products.Edit")]
+        [Authorize("ProductManagement.Products.Edit")]
         public async Task<ProductDto> UpdateAsync(Guid id, UpdateProductDto input)
         {
             var product = ObjectMapper.Map<UpdateProductDto, Product>(input);
+            
+            var updatedProduct = await _productRepository.UpdateAsync(product);
 
-            var createdProduct = await _productRepository.UpdateAsync(product);
-
-            return ObjectMapper.Map<Product, ProductDto>(createdProduct);
+            return ObjectMapper.Map<Product, ProductDto>(updatedProduct);
         }
         
     }

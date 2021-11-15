@@ -1,17 +1,29 @@
 ﻿@page
 @using Microsoft.Extensions.Localization
 @using ProductManagement.Localization
+@using System.Globalization
 @inject IStringLocalizer<ProductManagementResource> L
 @model ProductManagement.Web.Pages.ProductManagement.Products.CreateModel
 @section scripts {
-<abp-script src="/Pages/ProductManagement/Products/Index.js" />
+	<abp-script src="/Pages/ProductManagement/Products/Index.js" />
+}
+@{
+	var Culture = CultureInfo.CurrentCulture.Name;
 }
 <form method="post" enctype="multipart/form-data">
 	<abp-card>
 		<abp-card-header>@L["NewProduct"]</abp-card-header>
 		<abp-card-body>
-			<abp-input asp-for="@Model.Product.Title" label="@L["Title"]" />
-			<abp-input asp-for="@Model.Product.Description" label="@L["Description"]" />
+			@if (Culture == "ar")
+			{
+				<abp-input asp-for="@Model.Product.TitleAr" label="@L["Title"]" />
+				<abp-input asp-for="@Model.Product.DescriptionAr" label="@L["Description"]" />
+			}
+			@if (Culture == "en")
+			{
+				<abp-input asp-for="@Model.Product.TitleEn" label="@L["Title"]" />
+				<abp-input asp-for="@Model.Product.DescriptionEn" label="@L["Description"]" />
+			}
 			<abp-input asp-for="@Model.Product.Price" label="@L["Price"]" />
 			<abp-select asp-for="@Model.Product.CategoryId" label="@L["Category"]" asp-items="@(new SelectList(Model.Categories,"Id","Name"))" />
 			<div>

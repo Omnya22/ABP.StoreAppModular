@@ -1,12 +1,17 @@
 ﻿@page
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.Extensions.Options
 @using Microsoft.Extensions.Localization
 @using ProductManagement.Localization
 @using ProductManagement.Permissions
 @using Microsoft.AspNetCore.Authorization
-@inject IAuthorizationService AuthorizationService
+@using System.Globalization
 @inject IStringLocalizer<ProductManagementResource> L
+@inject IAuthorizationService AuthorizationService
+@inject IOptions<RequestLocalizationOptions> loc
 @model ProductManagement.Web.Pages.ProductManagement.Products.IndexModel
 @{
+	var Culture = CultureInfo.CurrentCulture.Name;
 }
 <form method="post">
 	<div class="card">
@@ -36,32 +41,40 @@
 						<th>@L["Description"]</th>
 						<th>@L["Price"]</th>
 						@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Edit)
-							 || await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Delete))
+						 || await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Delete))
 						{
 							<th>@L["Actions"]</th>
 						}
-						</tr>
+					</tr>
 				</thead>
 				<tbody>
 					@foreach (var product in Model.Products)
 					{
-					<tr>
-						<td>@product.Title</td>
-						<td>@product.Description</td>
-						<td>@product.Price</td>
-						<td>
-							<div>
-								@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Edit))
-								{
-									<a type="button" asp-page="Edit" asp-route-id="@product.Id" class="btn btn-info">@L["Edit"] <i class="far fa-edit"></i></a>
-								}
-								@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Delete))
-								{
-									<a type="button" asp-page="Delete" asp-route-id="@product.Id" class="btn btn-danger">@L["Delete"] <i class="fas fa-trash-alt"></i></a>
-								}
-							</div>
-						</td>	
-					</tr>
+						<tr>
+							@if (Culture == "ar")
+							{
+								<td>@product.TitleAr</td>
+								<td>@product.DescriptionAr</td>
+							}
+							@if (Culture == "en")
+							{
+								<td>@product.TitleEn</td>
+								<td>@product.DescriptionEn</td>
+							}
+							<td>@product.Price</td>
+							<td>
+								<div>
+									@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Edit))
+									{
+										<a type="button" asp-page="Edit" asp-route-id="@product.Id" class="btn btn-info">@L["Edit"] <i class="far fa-edit"></i></a>
+									}
+									@if (await AuthorizationService.IsGrantedAsync(ProductManagementPermissions.Product.Delete))
+									{
+										<a type="button" asp-page="Delete" asp-route-id="@product.Id" class="btn btn-danger">@L["Delete"] <i class="fas fa-trash-alt"></i></a>
+									}
+								</div>
+							</td>
+						</tr>
 					}
 				</tbody>
 			</table>

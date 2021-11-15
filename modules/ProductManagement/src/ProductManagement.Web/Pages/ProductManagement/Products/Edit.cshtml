@@ -1,29 +1,52 @@
 ﻿@page
 @using Microsoft.Extensions.Localization
 @using ProductManagement.Localization
+@using System.Globalization
 @inject IStringLocalizer<ProductManagementResource> L
 @model ProductManagement.Web.Pages.ProductManagement.Products.EditModel
 @section scripts {
 	<abp-script src="/Pages/ProductManagement/Products/Index.js" />
 }
+@{
+	var Culture = CultureInfo.CurrentCulture.Name;
+}
 <form method="post" enctype="multipart/form-data">
 	<abp-card>
-		<abp-card-header>@L["EditProduct"]: @Model.Product.Title</abp-card-header>
-		<abp-card-body>
-			<input hidden asp-for="@Model.Product.Id" />
-			<abp-input asp-for="@Model.Product.Title" label="@L["Title"]" />
-			<abp-input asp-for="@Model.Product.Description" label="@L["Description"]" />
-			<abp-input asp-for="@Model.Product.Price" label="@L["Price"]" />
-			<abp-select asp-for="@Model.Product.CategoryId" label="@L["Category"]" asp-items="@(new SelectList(Model.Categories,"Id","Name"))" />
-			<div>
-				<span style="display:none" id="download"><i class="fas fa-download"></i></span>
-				<label for="file-input">
-					<img src="@Model.Photo" />
-				</label>
-				<input id="file-input" style="display:none" type="file" accept="image/*" asp-for="@Model.Product.PicPath" />"@L["ProductPic"]"
-			</div>
-			<abp-button button-type="Danger" type="submit" icon="save" text="@L["Save"].Value"></abp-button>
-			<abp-button button-type="Primary" icon="close" text="@L["Close"].Value" onclick="history.go(-1)"></abp-button>
-		</abp-card-body>
+		@if (Culture == "ar")
+		{
+			<abp-card-header>@L["EditProduct"]: @Model.Product.TitleAr</abp-card-header>
+		}
+		@if (Culture == "en")
+		{
+			<abp-card-header>@L["EditProduct"]: @Model.Product.TitleEn</abp-card-header>
+		}
+	<abp-card-body>
+		<input hidden asp-for="@Model.Product.Id" />
+		@if (Culture == "ar")
+		{
+			<abp-input asp-for="@Model.Product.TitleAr" label="@L["Title"]" />
+			<abp-input asp-for="@Model.Product.DescriptionAr" label="@L["Description"]" />
+			<input hidden asp-for="@Model.Product.TitleEn" />
+			<input hidden asp-for="@Model.Product.DescriptionEn" />
+		}
+		@if (Culture == "en")
+		{
+			<abp-input asp-for="@Model.Product.TitleEn" label="@L["Title"]" />
+			<abp-input asp-for="@Model.Product.DescriptionEn" label="@L["Description"]" />
+			<input hidden asp-for="@Model.Product.TitleAr" />
+			<input hidden asp-for="@Model.Product.DescriptionAr" />
+		}
+		<abp-input asp-for="@Model.Product.Price" label="@L["Price"]" />
+		<abp-select asp-for="@Model.Product.CategoryId" label="@L["Category"]" asp-items="@(new SelectList(Model.Categories,"Id","Name"))" />
+		<div>
+			<span style="display:none" id="download"><i class="fas fa-download"></i></span>
+			<label for="file-input">
+				<img src="@Model.Photo" />
+			</label>
+			<input id="file-input" style="display:none" type="file" accept="image/*" asp-for="@Model.Product.PicPath" />"@L["ProductPic"]"
+		</div>
+		<abp-button button-type="Danger" type="submit" icon="save" text="@L["Save"].Value"></abp-button>
+		<abp-button button-type="Primary" icon="close" text="@L["Close"].Value" onclick="history.go(-1)"></abp-button>
+	</abp-card-body>
 	</abp-card>
 </form>
